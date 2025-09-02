@@ -170,13 +170,15 @@ services:
     environment:
       - NODE_ENV=production
       - NEXT_PUBLIC_API_URL=http://localhost:8000
+      - HOSTNAME=0.0.0.0
+      - HOST=0.0.0.0
     ports:
       - "3000:3000"
     depends_on:
       backend:
         condition: service_healthy
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000"]
+      test: ["CMD-SHELL", "curl -fsS http://127.0.0.1:3000/ || exit 1"]
       interval: 30s
       timeout: 10s
       retries: 3

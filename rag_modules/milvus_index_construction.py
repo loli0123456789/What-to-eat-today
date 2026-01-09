@@ -11,6 +11,10 @@ from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_core.documents import Document
 import numpy as np
 
+import os
+# 模型离线加载
+os.environ["HF_HUB_OFFLINE"] = "1"
+
 logger = logging.getLogger(__name__)
 
 class MilvusIndexConstructionModule:

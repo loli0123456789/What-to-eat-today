@@ -18,6 +18,10 @@ logger = logging.getLogger(__name__)
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
 from dotenv import load_dotenv
+# 加载环境变量
+# 需要在加载GraphRAGConfig执行调用load_dotenv()
+load_dotenv()
+
 from config import DEFAULT_CONFIG, GraphRAGConfig
 from rag_modules import (
     GraphDataPreparationModule,
@@ -31,8 +35,6 @@ from rag_modules.session_cache_manager import SessionCacheManager
 from rag_modules.web_service_handler import WebServiceHandler
 from rag_modules.recipe_recommendation import RecipeRecommendationManager
 
-# 加载环境变量
-load_dotenv()
 
 class AdvancedGraphRAGSystem:
     """
@@ -322,7 +324,7 @@ class AdvancedGraphRAGSystem:
         try:
             if hasattr(self.index_module, 'embedding_model'):
                 # 使用现有的embedding模型
-                return self.index_module.embedding_model.encode([query])[0]
+                return self.index_module.embedding_model.embed_documents([query])[0]
             return None
         except Exception as e:
             logger.warning(f"获取查询向量失败: {e}")

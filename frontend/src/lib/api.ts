@@ -48,7 +48,9 @@ api.interceptors.response.use(
 export const chatApi = {
   // 发送消息并获取流式响应
   sendMessage: async function* (message: string, sessionId?: string): AsyncGenerator<string> {
-    const baseURL = typeof window !== 'undefined' ? '' : 'http://backend:8000'
+    // const baseURL = typeof window !== 'undefined' ? '' : 'http://backend:8000'
+    // 和普通api一样的地址设置逻辑
+    const baseURL = process.env.NEXT_PUBLIC_API_URL || (typeof window !== 'undefined' ? '' : 'http://backend:8000')
     const response = await fetch(`${baseURL}/api/chat/stream`, {
       method: 'POST',
       headers: {
